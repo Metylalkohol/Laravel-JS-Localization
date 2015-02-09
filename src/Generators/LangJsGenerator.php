@@ -43,15 +43,18 @@ class LangJsGenerator
 
         foreach ($this->file->allFiles($path) as $file) {
 
-            $pathName = $file->getRelativePathName();
+            if($this->file->name() == 'javascript.php')
+            {
+                $pathName = $file->getRelativePathName();
 
-            if ( $this->file->extension($pathName) !== 'php' ) continue;
+                if ( $this->file->extension($pathName) !== 'php' ) continue;
 
-            $key = substr($pathName, 0, -4);
-            $key = str_replace('\\', '.', $key);
-            $key = str_replace('/', '.', $key);
+                $key = substr($pathName, 0, -4);
+                $key = str_replace('\\', '.', $key);
+                $key = str_replace('/', '.', $key);
 
-            $messages[ $key ] = include "${path}/${pathName}";
+                $messages[ $key ] = include "${path}/${pathName}";
+            }
         }
 
         return $messages;
